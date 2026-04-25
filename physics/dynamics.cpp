@@ -10,7 +10,7 @@ double M = 1.0;// cart mass;
 double m = 0.5;//pole mass all in kg
 double l = 0.5;//pole  half-length (m)
 
-const double dt = 0.01;//time step(s)
+const double dt = 0.005;//time step(s)
 
 
 

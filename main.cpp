@@ -16,17 +16,21 @@ int main() {
     s.x_dot     = 0.0;
     s.theta     = 0.05;
     s.theta_dot = 0.0;
+    IntegratorType method = IntegratorType::RK4;
 
     std::ofstream file("log.csv");
     file << "time,x,theta\n";
 
     double t  = 0.0;
-    double dt = 0.01;
+    double dt = 0.005;
 
+    double kp = 5.0;
+    double kd = 10.0;
+    double kv = 2.0;
     for (int i = 0; i < 5000; i++) {
-        double force = 0.0;
+        double force = (kp*s.theta) + (kd*s.theta_dot)-(kv*s.x_dot);
 
-        step(s, force);
+        step(s, force,method);
 
         // print every 100 steps
         if (i % 100 == 0) {
