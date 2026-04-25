@@ -14,7 +14,7 @@ int main() {
 
     s.x         = 0.0;
     s.x_dot     = 0.0;
-    s.theta     = 0.1;
+    s.theta     = 0.05;
     s.theta_dot = 0.0;
 
     std::ofstream file("log.csv");
@@ -23,19 +23,21 @@ int main() {
     double t  = 0.0;
     double dt = 0.01;
 
-    for (int i = 0; i < 2000; i++) {
+    for (int i = 0; i < 5000; i++) {
         double force = 0.0;
 
         step(s, force);
 
-        // wrap theta to [-pi, pi] so it doesn't spin past 6 rad
-        while (s.theta >  M_PI) s.theta -= 2 * M_PI;
-        while (s.theta < -M_PI) s.theta += 2 * M_PI;
+        // print every 100 steps
+        if (i % 100 == 0) {
+            std::cout << "t=" << t
+                      << " x="         << s.x
+                      << " theta="     << s.theta
+                      << " theta_dot=" << s.theta_dot
+                      << "\n";
+        }
 
         file << t << "," << s.x << "," << s.theta << "\n";
         t += dt;
     }
-
-    file.close();
-    std::cout << "Simulation done. Data saved.\n";
 }
