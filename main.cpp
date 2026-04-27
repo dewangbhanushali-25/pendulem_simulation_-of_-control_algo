@@ -4,7 +4,8 @@
 #include <iostream>
 #include <fstream>
 #include <cmath>
-#include "physics/dynamics.hpp"   // ✓ only include the header
+#include "physics/dynamics.hpp"
+#include "controllers/controller.hpp"
 // remove the dynamics.cpp include
 
 using namespace std;
@@ -16,7 +17,20 @@ int main() {
     s.x_dot     = 0.0;
     s.theta     = 0.05;
     s.theta_dot = 0.0;
-    IntegratorType method = IntegratorType::RK4;
+
+    // ← change ONE line to switch integrator
+    IntegratorType integrator = IntegratorType::RK4;
+    // IntegratorType integrator = IntegratorType::EULER;
+
+
+    // ← change ONE line to switch controller
+    ControllerType controller = ControllerType::PD;
+    // ControllerType controller = ControllerType::NONE;
+    // ControllerType controller = ControllerType::P;
+    // ControllerType controller = ControllerType::PID;
+
+
+
 
     std::ofstream file("log.csv");
     file << "time,x,theta\n";
@@ -24,9 +38,7 @@ int main() {
     double t  = 0.0;
     double dt = 0.005;
 
-    double kp = 5.0;
-    double kd = 10.0;
-    double kv = 2.0;
+
     for (int i = 0; i < 5000; i++) {
         double force = (kp*s.theta) + (kd*s.theta_dot)-(kv*s.x_dot);
 
