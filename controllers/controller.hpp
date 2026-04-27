@@ -11,7 +11,7 @@ struct ControllerGains {
     double kp = 0.0;
     double kd = 0.0;
     double ki = 0.0;
-    // TODO: ADD LQR GAINS ADDEDE LATER
+    //  ADD LQR GAINS ADDEDE LATER
     //
 };
 double compute_control(double theta, double theta_dot,
